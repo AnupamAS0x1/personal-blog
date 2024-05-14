@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <title>Exploring CI/CD Vulnerabilities in github actions // </title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.125.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.22f19d6a0163affef8a8d709f20a1624ddfc34c912bb68054b9eeb585310b930.css" />
+    
+
+    
+  
+
+
+    <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Exploring CI/CD Vulnerabilities in github actions">
+<meta name="twitter:description" content="I hope this message finds you well. Today, I&rsquo;m thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.
+Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.
+To help you get started, I have a YouTube playlist with informative videos that will guide you in getting acquainted with action workflow">
+
+    <meta property="og:url" content="http://localhost:1313/posts/how-to-start-with-ci-cd-vulnerabilities/">
+  <meta property="og:title" content="Exploring CI/CD Vulnerabilities in github actions">
+  <meta property="og:description" content="I hope this message finds you well. Today, I&amp;rsquo;m thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.
+Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.
+To help you get started, I have a YouTube playlist with informative videos that will guide you in getting acquainted with action workflow">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+  <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-01T12:39:42+05:30">
+    <meta property="article:modified_time" content="2024-05-01T12:39:42+05:30">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" />
+        
+      
+      
+      </a>
+    
+
+      <span class="app-header-title"></span>
+           
+      <div class="Profile link">
+        <a href="https://hackerone.com/anupamas01" target="_blank">
+          <img src="https://hackerone.com/favicon.ico" alt="HackerOne Profile">
+        </a>
+        <a href="https://bugcrowd.com/AnupamAs01" target="_blank">
+          <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://bugcrowd.com/&size=32" alt="HackerOne Profile">
+        </a>
+        <a href="https://app.intigriti.com/profile/anupamas" target="_blank">
+          <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://app.intigriti.com/&size=32" alt="HackerOne Profile">
+        </a>
+      <p> Security Researcher</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Exploring CI/CD Vulnerabilities in github actions</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          May 1, 2024
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>I hope this message finds you well. Today, I&rsquo;m thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.</p>
+<h1 id="getting-started">Getting started</h1>
+<p>To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.</p>
+<p>To help you get started, I have a YouTube playlist with informative videos that will guide you in getting acquainted with action workflow</p>
+<p><a href="https://www.youtube.com/watch?v=-hVG9z0fCac&amp;list=PLArH6NjfKsUhvGHrpag7SuPumMzQRhUKY">youtube playlist</a></p>
+<h2 id="understanding-workflow-events">Understanding Workflow Events</h2>
+<p>I will only talk about two worfklow events which will lead to RCE if misconfigured in action workflows</p>
+<p><code>pull_request_target</code> and <code>workflow_run</code> events</p>
+<h3 id="running-attacker-code">Running Attacker Code</h3>
+<ol>
+<li><code>pull_request_target</code>: This event is same as <code>pull_request</code> but the main difference is that it has a write permission for the tokens, So an attacker can    execute Malicious commands with write permissions if the event is misconfigured.</li>
+</ol>
+<p>Here is an yaml file which is vulnerable for malcious execution by pull_request_target.</p>
+<h3 id="example-1-vulnerability-via-pull_request_target">Example 1: Vulnerability via <code>pull_request_target</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">pull_request_target</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build and test</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">${{ github.event.pull_request.head.sha }}</span> <span style="color:#75715e"># from here on it will take the attacker code as it is checking out the untrusted input </span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup node</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/setup-node@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">node-version</span>: <span style="color:#e6db74">&#39;16&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install dependencies</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">npm install</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build docs</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">npm run create-docs</span>
+</span></span><span style="display:flex;"><span>      
+</span></span></code></pre></div><h1 id="explanation">Explanation:</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">ref</span>: <span style="color:#ae81ff">${{ github.event.pull_request.head.sha }}</span>
+</span></span></code></pre></div><p>From this part the action will run on the attacker forked code base as it is using <code>head.sha</code> which will take attacker pull request as a input and make the base repo action to run the attacker&rsquo;s fork code here.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup node</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/setup-node@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">node-version</span>: <span style="color:#e6db74">&#39;16&#39;</span>
+</span></span></code></pre></div><p>From this ownwards the code will setup npm enviroment from the action runner from the attackers code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install dependencies</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">run</span>: <span style="color:#ae81ff">npm install</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build docs</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">run</span>: <span style="color:#ae81ff">npm run create-docs</span>
+</span></span></code></pre></div><p>The potentially untrusted code is being run during npm install and npm run as the referenced packages are controlled by the author of the PR.</p>
+<h1 id="exploitation">Exploitation</h1>
+<p>Now in the forked Repo you can modify your input in package.json and create a pull request.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span> <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&#34;create-docs&#34;</span>: <span style="color:#e6db74">&#34;echo &#39;your code&#39;&#34;</span>
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><p>2.<code>workflow_run</code>: This event allows a user to trigger privileged workflows. It triggers when the status of the other workflow is complete/requested and can be triggered from a forked workflow.</p>
+<p>Here is an yaml file which is vulnerable for malcious execution by workflow_run</p>
+<h3 id="example-2-vulnerability-via-workflow_run">Example 2: Vulnerability via <code>workflow_run</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy docs</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">workflow_run</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">workflows</span>: [<span style="color:#e6db74">&#39;Publish Package&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">types</span>: [<span style="color:#ae81ff">completed]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">deploy-docs</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">if</span>: <span style="color:#ae81ff">${{ github.event.workflow_run.conclusion == &#39;success&#39; }}</span> <span style="color:#75715e">#if the workflow is successfully completed then it will start rest of the tasks in the job </span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ref</span>: <span style="color:#ae81ff">${{ github.event.workflow_run.head_sha }}</span> <span style="color:#75715e"># checkout specific commit</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup node</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/setup-node@v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">node-version</span>: <span style="color:#e6db74">&#39;16&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install dependencies</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">npm install</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build docs</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">npm run create-docs</span>
+</span></span></code></pre></div><h1 id="explantion">Explantion:</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">workflow_run</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">workflows</span>: [<span style="color:#e6db74">&#39;Publish Package&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">types</span>: [<span style="color:#ae81ff">completed]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">if</span>: <span style="color:#ae81ff">${{ github.event.workflow_run.conclusion == &#39;success&#39; }}</span>
+</span></span></code></pre></div><p>This workflow will run after the workflow named <code>Publish Package'</code> have been successfully completed as mentioned in the <code>if:</code>. So for triggering this
+workflow we need to create workflow name <code>Publish Package</code> in the fork repo [there can be same workflow with same name].</p>
+<h1 id="exploitation-1">Exploitation</h1>
+<p>here will create a workflow which will have the name <code>Publish Package</code> with a normal <code>pull_request</code> event,Which will successfully run and trigger the vulnerable
+workflow</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Publish Package</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pull_request</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">types</span>: [<span style="color:#ae81ff">opened]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">publish-package</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Check out repository</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Example Step</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">run</span>: <span style="color:#ae81ff">echo &#34;This is an example step for publishing the package&#34;</span>
+</span></span></code></pre></div><p>This will help us to trigger the other workflow <code>Deploy docs</code></p>
+<p>modifying package.json file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span> <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&#34;create-docs&#34;</span>: <span style="color:#e6db74">&#34;echo &#39;your code&#39;&#34;</span>
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><h2 id="remediation">Remediation:</h2>
+<p>Avoid checking out untrusted code within action workflows to mitigate vulnerabilities.</p>
+<h2 id="conclusion">Conclusion:</h2>
+<p>I have not cover many other exploit scenarios and events which can lead to vulneribility.</p>
+<h2 id="reference">Reference:</h2>
+<p><a href="https://www.legitsecurity.com/blog/github-privilege-escalation-vulnerability">https://www.legitsecurity.com/blog/github-privilege-escalation-vulnerability</a></p>
+<p><a href="https://cloud.hacktricks.xyz/pentesting-ci-cd/github-security/abusing-github-actions">https://cloud.hacktricks.xyz/pentesting-ci-cd/github-security/abusing-github-actions</a></p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
