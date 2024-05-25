@@ -1,7 +1,7 @@
 +++
 title = 'Exploring CI/CD Vulnerabilities in github actions'
 date = 2024-05-01T12:39:42+05:30
-draft = true
+draft = false
 +++
 
 I hope this message finds you well. Today, I'm thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.

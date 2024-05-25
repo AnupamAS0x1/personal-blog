@@ -1,7 +1,7 @@
 +++
 title = 'Blogs'
 date = 2024-05-25T12:48:44+05:30
-draft = true
+draft = false
 googlefonts = ["Droid Sans", "Fira Mono"]
 fontbody = 'Droid Sans'
 fontcode = 'Fira Mono'
