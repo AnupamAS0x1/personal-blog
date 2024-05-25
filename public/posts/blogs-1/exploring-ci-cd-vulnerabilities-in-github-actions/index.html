@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.125.0">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="John Doe" />
+    <meta name="author" content="Anupam Singh" />
     <meta name="description" content="" />
     <link rel="stylesheet" href="/css/main.min.22f19d6a0163affef8a8d709f20a1624ddfc34c912bb68054b9eeb585310b930.css" />
     
@@ -22,7 +22,7 @@
 Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.
 To help you get started, I have a YouTube playlist with informative videos that will guide you in getting acquainted with action workflow">
 
-    <meta property="og:url" content="http://localhost:1313/posts/how-to-start-with-ci-cd-vulnerabilities/">
+    <meta property="og:url" content="http://localhost:1313/posts/blogs-1/exploring-ci-cd-vulnerabilities-in-github-actions/">
   <meta property="og:title" content="Exploring CI/CD Vulnerabilities in github actions">
   <meta property="og:description" content="I hope this message finds you well. Today, I&amp;rsquo;m thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.
 Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.
@@ -38,7 +38,7 @@ To help you get started, I have a YouTube playlist with informative videos that 
   <body>
     <header class="app-header">
 
-      <a href="http://localhost:1313/"><img class="app-header-avatar" src="/avatar.png" alt="John Doe" />
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="/avatar.png" alt="Anupam Singh" />
         
       
       
@@ -57,7 +57,7 @@ To help you get started, I have a YouTube playlist with informative videos that 
         <a href="https://app.intigriti.com/profile/anupamas" target="_blank">
           <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://app.intigriti.com/&size=32" alt="HackerOne Profile">
         </a>
-      <p> Security Researcher</p>
+      <p>Just an average guy doing his best every day</p>
     </header>
     <main class="app-container">
       
@@ -90,8 +90,10 @@ To help you get started, I have a YouTube playlist with informative videos that 
 <h2 id="understanding-workflow-events">Understanding Workflow Events</h2>
 <p>I will only talk about two worfklow events which will lead to RCE if misconfigured in action workflows</p>
 <p><code>pull_request_target</code> and <code>workflow_run</code> events</p>
-<p>#Permissions for action:
-<img src="/content/posts/action.png" alt="Alt text"></p>
+<h1 id="configuration-for-action">Configuration for action:</h1>
+<p>Lets talk about the Configuration that are used for action.
+<img src="action.png" alt="Alt text"></p>
+<p>The default permissions allow first-time contributors to run the action runners without any approval from the maintainers. Most repositories have this default configuration. You can look at the pull requests that are being opened to confirm if you need to become a first-time contributor or not for exploiting it.</p>
 <h3 id="running-attacker-code">Running Attacker Code</h3>
 <ol>
 <li><code>pull_request_target</code>: This event is same as <code>pull_request</code> but the main difference is that it has a write permission for the tokens, So an attacker can    execute Malicious commands with write permissions if the event is misconfigured.</li>
@@ -206,6 +208,7 @@ workflow</p>
 </span></span><span style="display:flex;"><span> }
 </span></span></code></pre></div><h2 id="remediation">Remediation:</h2>
 <p>Avoid checking out untrusted code within action workflows to mitigate vulnerabilities.</p>
+<p>Assign write premission where its needed.</p>
 <h2 id="conclusion">Conclusion:</h2>
 <p>I have not cover many other exploit scenarios and events which can lead to vulneribility.</p>
 <h2 id="reference">Reference:</h2>

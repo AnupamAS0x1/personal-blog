@@ -17,9 +17,18 @@ To help you get started, I have a YouTube playlist with informative videos that 
 
 ## Understanding Workflow Events
 
+
 I will only talk about two worfklow events which will lead to RCE if misconfigured in action workflows
 
 `pull_request_target` and `workflow_run` events
+
+# Configuration for action:
+
+Lets talk about the Configuration that are used for action.
+![Alt text](action.png)
+
+The default permissions allow first-time contributors to run the action runners without any approval from the maintainers. Most repositories have this default configuration. You can look at the pull requests that are being opened to confirm if you need to become a first-time contributor or not for exploiting it.
+
 
 ### Running Attacker Code
 
@@ -177,6 +186,8 @@ modifying package.json file
 ```
 ## Remediation:
 Avoid checking out untrusted code within action workflows to mitigate vulnerabilities.
+
+Assign write premission where its needed.
 
 
 

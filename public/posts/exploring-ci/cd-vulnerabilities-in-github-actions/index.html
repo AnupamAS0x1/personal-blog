@@ -22,7 +22,7 @@
 Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.
 To help you get started, I have a YouTube playlist with informative videos that will guide you in getting acquainted with action workflow">
 
-    <meta property="og:url" content="http://localhost:1313/posts/how-to-start-with-ci-cd-vulnerabilities/">
+    <meta property="og:url" content="http://localhost:1313/posts/exploring-ci/cd-vulnerabilities-in-github-actions/">
   <meta property="og:title" content="Exploring CI/CD Vulnerabilities in github actions">
   <meta property="og:description" content="I hope this message finds you well. Today, I&amp;rsquo;m thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.
 Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.
@@ -90,8 +90,8 @@ To help you get started, I have a YouTube playlist with informative videos that 
 <h2 id="understanding-workflow-events">Understanding Workflow Events</h2>
 <p>I will only talk about two worfklow events which will lead to RCE if misconfigured in action workflows</p>
 <p><code>pull_request_target</code> and <code>workflow_run</code> events</p>
-<p>#Permissions for action:
-<img src="/content/posts/action.png" alt="Alt text"></p>
+<h1 id="permissions-for-action">Permissions for action:</h1>
+<p><img src="action.png" alt="Alt text"></p>
 <h3 id="running-attacker-code">Running Attacker Code</h3>
 <ol>
 <li><code>pull_request_target</code>: This event is same as <code>pull_request</code> but the main difference is that it has a write permission for the tokens, So an attacker can    execute Malicious commands with write permissions if the event is misconfigured.</li>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs-1s on </title>
+    <link>http://localhost:1313/blogs-1/</link>
+    <description>Recent content in Blogs-1s on </description>
+    <generator>Hugo 0.125.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 May 2024 12:39:42 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/blogs-1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring CI/CD Vulnerabilities in github actions</title>
+      <link>http://localhost:1313/blogs-1/exploring-ci-cd-vulnerabilities-in-github-actions/</link>
+      <pubDate>Wed, 01 May 2024 12:39:42 +0530</pubDate>
+      <guid>http://localhost:1313/blogs-1/exploring-ci-cd-vulnerabilities-in-github-actions/</guid>
+      <description>I hope this message finds you well. Today, I&amp;rsquo;m thrilled to share my journey and insights into exploring CI/CD vulnerabilities in GitHub Actions.&#xA;Getting started To start with actions It is crucial to understand the intricacies of action workflows and familiarize yourself with their functionality and the significance of each event. Crafting sample workflows can significantly aid comprehension.&#xA;To help you get started, I have a YouTube playlist with informative videos that will guide you in getting acquainted with action workflow</description>
+    </item>
+  </channel>
+</rss>

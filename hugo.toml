@@ -1,4 +1,9 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = ''
+title = ""  
 theme = "m10c"
+
+[params]  
+  author = "Anupam Singh"
+  description = "Just an average guy doing his best every day"  
+  
